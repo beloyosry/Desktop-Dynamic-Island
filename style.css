@@ -103,50 +103,7 @@ svg.s { fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: rou
   background: radial-gradient(circle at 100% 100%, transparent 15px, rgba(6, 6, 10, .92) 15.5px);
 }
 
-/* iOS Hardware Camera & TrueDepth Aperture */
-.notch-aperture {
-  position: absolute;
-  left: 13px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  pointer-events: none;
-  z-index: 5;
-  opacity: .85;
-  transition: opacity .3s ease, transform .35s var(--spring);
-}
-#island.expanded .notch-aperture, #island.peek .notch-aperture, #island.toast .notch-aperture {
-  opacity: 0;
-  transform: translateY(-50%) scale(0.5);
-}
-.cam-lens {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #1a3250 0%, #0d1e33 45%, #040810 100%);
-  box-shadow: inset 0 0 1.5px rgba(255, 255, 255, .35), 0 0 2px rgba(0, 0, 0, .9);
-  position: relative;
-}
-.cam-lens::after {
-  content: "";
-  position: absolute;
-  left: 2px;
-  top: 2px;
-  width: 2.5px;
-  height: 2.5px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, .7);
-  filter: blur(0.2px);
-}
-.cam-sensor {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #08080c;
-  box-shadow: inset 0 0 1px rgba(255, 255, 255, .15);
-}
+
 
 #island.idle     { --w: 226px; --h: 36px;  --r: 18px; }
 #island.compact  { --w: 330px; --h: 38px;  --r: 19px; }

@@ -9,6 +9,7 @@ Live music activities, instant desktop control center, sticky scratchpad & todo 
 [![Download Installer](https://img.shields.io/badge/Download-Installer%20(v2.0.0)-0078d4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/beloyosry/Desktop-Dynamic-Island/releases/latest/download/Dynamic-Island-Pro-Setup-2.0.0.exe)
 [![Download Portable](https://img.shields.io/badge/Download-Portable%20(.exe)-107c41?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/beloyosry/Desktop-Dynamic-Island/releases/latest/download/Dynamic.Island.Pro.2.0.0.portable.exe)
 [![GitHub Releases](https://img.shields.io/badge/Releases-v2.0.0-8a2be2?style=for-the-badge&logo=github)](https://github.com/beloyosry/Desktop-Dynamic-Island/releases)
+[![Developer](https://img.shields.io/badge/Developer-Belal%20Yosry-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/beloyosry)
 [![License](https://img.shields.io/badge/License-GPL%20v3-orange?style=for-the-badge)](LICENSE)
 
 </div>
@@ -105,3 +106,21 @@ npm run dist
 ```
 
 Requires Windows 10 or 11 (64-bit).
+
+---
+
+## 👨‍💻 Author & Developer
+
+**Belal Yosry** — Creator & Lead Developer
+
+- 🌐 **GitHub**: [@beloyosry](https://github.com/beloyosry)
+- 📁 **Repository**: [beloyosry/Desktop-Dynamic-Island](https://github.com/beloyosry/Desktop-Dynamic-Island)
+- 📱 **Phone / WhatsApp**: [+201153969065](https://wa.me/201153969065)
+
+---
+
+## 📄 License & Rights
+
+Copyright © 2026 **Belal Yosry**. All rights reserved.
+
+This project is licensed under the [GNU General Public License v3.0](LICENSE).

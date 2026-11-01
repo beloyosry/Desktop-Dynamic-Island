@@ -8,7 +8,19 @@
     "dist": "electron-builder --win nsis",
     "dist:portable": "electron-builder --win portable"
   },
-  "author": "Dynamic Island Pro",
+  "author": {
+    "name": "Belal Yosry",
+    "url": "https://github.com/beloyosry",
+    "phone": "+201153969065"
+  },
+  "homepage": "https://github.com/beloyosry/Desktop-Dynamic-Island",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/beloyosry/Desktop-Dynamic-Island.git"
+  },
+  "bugs": {
+    "url": "https://github.com/beloyosry/Desktop-Dynamic-Island/issues"
+  },
   "license": "GPL-3.0-only",
   "devDependencies": {
     "electron": "^44.7.2",
@@ -17,7 +29,7 @@
   "build": {
     "appId": "com.dynamicislandpro.app",
     "productName": "Dynamic Island Pro",
-    "copyright": "Copyright © 2026 Dynamic Island Pro",
+    "copyright": "Copyright © 2026 Belal Yosry. All rights reserved.",
     "electronLanguages": [
       "en-US",
       "ar"
@@ -40,8 +52,8 @@
     ],
     "publish": {
       "provider": "github",
-      "owner": "dynamic-island",
-      "repo": "dynamic-island-pro"
+      "owner": "beloyosry",
+      "repo": "Desktop-Dynamic-Island"
     },
     "asarUnpack": [
       "helper/nova-helper.exe"

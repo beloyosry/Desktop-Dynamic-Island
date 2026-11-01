@@ -843,7 +843,9 @@ ipcMain.handle('general-get', () => generalState());
 const SUPPORT_LINKS = {
   kofi: 'https://ko-fi.com/binamer',
   instapay: 'https://ipn.eg/S/binamerbm/instapay/38txJO',
-  github: 'https://github.com/NOVA-TECH-KIT/nova-island',
+  github: 'https://github.com/beloyosry/Desktop-Dynamic-Island',
+  whatsapp: 'https://wa.me/201153969065',
+  developer: 'https://github.com/beloyosry',
 };
 ipcMain.on('open-support', (_e, key) => {
   if (Object.hasOwn(SUPPORT_LINKS, key)) shell.openExternal(SUPPORT_LINKS[key]);

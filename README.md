@@ -6,11 +6,24 @@
 
 Live music activities, instant desktop control center, sticky scratchpad & todo checklist, drag & drop file shelf, stopwatch, weather radar, prayer alerts, and Nova companion.
 
-[![Build](https://img.shields.io/badge/Build-Passing-30d158?style=for-the-badge&logo=windows&logoColor=white)](#install)
-[![Version](https://img.shields.io/badge/Version-2.0.0-3b82f6?style=for-the-badge)](#features)
+[![Download Installer](https://img.shields.io/badge/Download-Installer%20(v2.0.0)-0078d4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/beloyosry/Desktop-Dynamic-Island/releases/latest/download/Dynamic-Island-Pro-Setup-2.0.0.exe)
+[![Download Portable](https://img.shields.io/badge/Download-Portable%20(.exe)-107c41?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/beloyosry/Desktop-Dynamic-Island/releases/latest/download/Dynamic.Island.Pro.2.0.0.portable.exe)
+[![GitHub Releases](https://img.shields.io/badge/Releases-v2.0.0-8a2be2?style=for-the-badge&logo=github)](https://github.com/beloyosry/Desktop-Dynamic-Island/releases)
 [![License](https://img.shields.io/badge/License-GPL%20v3-orange?style=for-the-badge)](LICENSE)
 
 </div>
+
+---
+
+## 📥 Download (Windows 10 / 11)
+
+Get the latest official build directly:
+
+| Package | Type | Download Link |
+| :--- | :--- | :--- |
+| 🚀 **Dynamic Island Pro Setup** | Standard Installer (`.exe`) | [**Download Setup (v2.0.0)**](https://github.com/beloyosry/Desktop-Dynamic-Island/releases/latest/download/Dynamic-Island-Pro-Setup-2.0.0.exe) |
+| 💼 **Dynamic Island Pro Portable** | Standalone Executable (Zero Install) | [**Download Portable (v2.0.0)**](https://github.com/beloyosry/Desktop-Dynamic-Island/releases/latest/download/Dynamic.Island.Pro.2.0.0.portable.exe) |
+| 🏷️ **All Releases & Notes** | GitHub Releases | [**View Release Assets**](https://github.com/beloyosry/Desktop-Dynamic-Island/releases) |
 
 ---
 
@@ -67,12 +80,11 @@ A micro-notepad and task organizer right in your island:
 
 ---
 
-## 📦 Executables Ready in `dist/`
+## 📦 Release Packages
 
-The application has been packaged and is ready for use:
-- **Portable Version**: `dist/Dynamic Island Pro 2.0.0 portable.exe` *(Run directly with zero installation!)*
-- **Setup Installer**: `dist/Dynamic-Island-Pro-Setup-2.0.0.exe` *(Full Windows installer with shortcuts)*
-- **Unpacked Folder**: `dist/win-unpacked/Dynamic Island Pro.exe`
+- **Setup Installer (`Dynamic-Island-Pro-Setup-2.0.0.exe`)**: Full Windows installer with desktop and start menu shortcuts and clean uninstaller.
+- **Portable Edition (`Dynamic Island Pro 2.0.0 portable.exe`)**: Single standalone executable requiring no installation or admin rights.
+- **Local Builds**: Located in the local `dist/` directory after running `npm run dist`.
 
 ---
 

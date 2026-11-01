@@ -1,0 +1,79 @@
+{
+  "name": "dynamic-island-pro",
+  "version": "2.0.0",
+  "description": "An interactive, ultra-smooth Dynamic Island for Windows desktop with live activities, smart tools & widgets",
+  "main": "nova.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis",
+    "dist:portable": "electron-builder --win portable"
+  },
+  "author": "Dynamic Island Pro",
+  "license": "GPL-3.0-only",
+  "devDependencies": {
+    "electron": "^44.7.2",
+    "electron-builder": "^26.17.0"
+  },
+  "build": {
+    "appId": "com.dynamicislandpro.app",
+    "productName": "Dynamic Island Pro",
+    "copyright": "Copyright © 2026 Dynamic Island Pro",
+    "electronLanguages": [
+      "en-US",
+      "ar"
+    ],
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "**/*",
+      "build/icon.png",
+      "build/icon.ico",
+      "!promo/**",
+      "!dist/**",
+      "!*.cmd",
+      "!setup-log.txt",
+      "!**/*.map",
+      "!helper/*.cs",
+      "!helper/*.cmd"
+    ],
+    "publish": {
+      "provider": "github",
+      "owner": "dynamic-island",
+      "repo": "dynamic-island-pro"
+    },
+    "asarUnpack": [
+      "helper/nova-helper.exe"
+    ],
+    "win": {
+      "target": [
+        "portable",
+        "nsis"
+      ],
+      "icon": "build/icon.ico",
+      "executableName": "Dynamic Island Pro"
+    },
+    "nsis": {
+      "oneClick": false,
+      "artifactName": "Dynamic-Island-Pro-Setup-${version}.${ext}",
+      "license": "LICENSE",
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "shortcutName": "Dynamic Island Pro",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false
+    },
+    "portable": {
+      "artifactName": "Dynamic Island Pro ${version} portable.exe"
+    }
+  },
+  "dependencies": {
+    "electron-updater": "^6.8.11",
+    "node-ical": "^0.27.3"
+  }
+}

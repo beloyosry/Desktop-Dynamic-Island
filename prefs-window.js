@@ -19,7 +19,7 @@ function open() {
     frame: false,
     show: false,
     backgroundColor: '#0f0f15',
-    title: 'Nova Island Settings',
+    title: 'Dynamic Island Pro Settings',
     icon: path.join(__dirname, 'build', 'icon.ico'),
     webPreferences: {
       preload: path.join(__dirname, 'prefs', 'preload.js'),

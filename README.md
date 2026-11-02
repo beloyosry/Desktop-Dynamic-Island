@@ -28,7 +28,13 @@ Get the latest official build directly:
 
 ---
 
-## New in 2.6.0 — Quran, cleanup, and Boost
+## New in 2.6.1 — Safe profile packs
+
+Settings > Personalize > Import setup now accepts appearance-only profile packs. Packs add saved profiles without replacing your settings, bookmarks, clocks, notes or existing profiles. Choose Apply to use a layout; privacy settings, alerts and timer durations remain yours. Duplicate imports are safe, and full libraries or conflicting names are reported before any changes are saved.
+
+The optional Supporter pack contains six curated layouts, preview images and an English/Arabic guide. All app features remain free. Local delivery materials and launch status are documented in [Supporter pack](docs/supporter.md); this does not indicate that the store or 2.6.1 release has been published.
+
+## Included in 2.6.0 — Quran, cleanup, and Boost
 
 The **Quran** tab streams recitations from [MP3Quran's public API](https://www.mp3quran.net/ar/api), with Arabic/English reciter search, favorites, available recitation styles, surah search, seek/volume, repeat, automatic next surah, and saved listening position. The live catalog verified on November 2, 2026 contains **244 reciters, 299 recitation collections, and 114 surahs**. Audio loads only on Play and continues while the island is collapsed. Internet is required for streaming. See [Quran player](docs/quran.md).
 
@@ -76,7 +82,7 @@ Eight coordinated color palettes, a live Appearance preview, playful button feed
 
 Settings > Updates shows checks, download progress, errors/retry, and Restart & update. Installed copies download published releases in the background. Portable users can select Get the installer once; existing notes and settings carry over. Publishing a new version is automated by the Windows release workflow. See [Releasing and updating](docs/releases.md).
 
-Local builds: `npm run dist` creates the 2.6.0 installer; `npm run verify:release` verifies its update files. The links above open the latest published release. Building locally does not publish a release.
+Local builds: `npm run dist` creates the 2.6.1 installer; `npm run verify:release` verifies its update files. The links above open the latest published release. Building locally does not publish a release.
 
 ## 🌟 Key Features & Innovations
 

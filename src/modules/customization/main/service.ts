@@ -8,6 +8,7 @@ import type { EventSender } from '../../../shared/contracts/events';
 import type { Result } from '../../../shared/contracts/bridge';
 import { registerModes } from '../../modes/main/service';
 import { modeById } from '../../modes/domain/catalog';
+import { ProfilePackError } from '../domain/profile-pack';
 
 export function registerCustomization(sender: EventSender, openSettings: (page?: string) => void) {
   const modes = registerModes(sender, openSettings);
@@ -117,7 +118,18 @@ export function registerCustomization(sender: EventSender, openSettings: (page?:
           const file = result.filePaths[0];
           if ((await stat(file)).size > 512000)
             return { ok: false, error: 'Choose a backup smaller than 500 KB.' };
-          const backup = parseBackup(JSON.parse(await readFile(file, 'utf8')));
+          const input: unknown = JSON.parse(await readFile(file, 'utf8'));
+          if (
+            input &&
+            typeof input === 'object' &&
+            'format' in input &&
+            input.format === 'dynamic-island-profile-pack'
+          ) {
+            profiles.importPack(input);
+            publishProfiles();
+            return { ok: true };
+          }
+          const backup = parseBackup(input);
           // Validate the complete document before changing any persisted values.
           profiles.replace(backup.profiles);
           toolkit.save(backup.toolkit);
@@ -129,7 +141,8 @@ export function registerCustomization(sender: EventSender, openSettings: (page?:
           publishToolkit();
         }
         return { ok: true };
-      } catch {
+      } catch (error) {
+        if (error instanceof ProfilePackError) return { ok: false, error: error.message };
         return {
           ok: false,
           error:

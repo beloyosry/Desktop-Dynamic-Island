@@ -4,11 +4,13 @@ import { sanitizeFeatures } from '../../settings/domain/service';
 import { sanitizeToolkit } from '../../toolkit/domain/service';
 import type { ToolkitState } from '../../toolkit/domain/types';
 import { MODES, favoriteIds } from '../../modes/domain/catalog';
+import { layoutFeatures, parseProfilePack, ProfilePackError } from './profile-pack';
 
 export interface Profile {
   id: string;
   name: string;
-  features: Features;
+  features: Partial<Features>;
+  kind?: 'layout';
 }
 export const PRESETS = MODES.filter((mode) => ['everyday', 'focus', 'creator', 'minimal'].includes(mode.id));
 export interface CustomizationBackup {
@@ -28,7 +30,17 @@ function cleanProfiles(input: unknown): Profile[] {
     const name = typeof row.name === 'string' ? row.name.trim().slice(0, 48) : '';
     if (!name || names.has(name.toLowerCase())) return [];
     names.add(name.toLowerCase());
-    return [{ id: `profile-${index}`, name, features: { ...DEFAULTS, ...sanitizeFeatures(row.features) } }];
+    return [
+      {
+        id: `profile-${index}`,
+        name,
+        ...(row.kind === 'layout' ? { kind: 'layout' as const } : {}),
+        features:
+          row.kind === 'layout'
+            ? layoutFeatures(row.features)
+            : { ...DEFAULTS, ...sanitizeFeatures(row.features) },
+      },
+    ];
   });
 }
 export function parseBackup(input: unknown): CustomizationBackup {
@@ -67,6 +79,29 @@ export function createProfileService(
   return {
     get,
     replace: persist,
+    importPack(input: unknown) {
+      const pack = parseProfilePack(input);
+      const additions: Profile[] = [];
+      for (const entry of pack.profiles) {
+        const existing = profiles.find((profile) => profile.name.toLowerCase() === entry.name.toLowerCase());
+        if (existing) {
+          if (
+            existing.kind === 'layout' &&
+            JSON.stringify(existing.features) === JSON.stringify(entry.features)
+          )
+            continue;
+          throw new ProfilePackError(
+            `A profile named "${entry.name}" already exists. Rename the pack profile or export your setup before removing the existing one.`,
+          );
+        }
+        additions.push({ id: '', kind: 'layout', ...entry });
+      }
+      if (profiles.length + additions.length > 12)
+        throw new ProfilePackError(
+          `This pack needs ${additions.length} free profile slots; ${12 - profiles.length} available. Export your setup before removing profiles, or import individual pack files.`,
+        );
+      return additions.length ? persist([...profiles, ...additions]) : get();
+    },
     save(name: unknown) {
       if (typeof name !== 'string' || !name.trim()) return get();
       const normalized = name.trim().slice(0, 48);

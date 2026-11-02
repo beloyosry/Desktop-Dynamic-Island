@@ -1,6 +1,6 @@
 {
   "name": "dynamic-island-pro",
-  "version": "2.6.0",
+  "version": "2.6.1",
   "description": "An interactive, ultra-smooth Dynamic Island for Windows desktop with live activities, smart tools & widgets",
   "main": "out/main/index.js",
   "scripts": {
@@ -14,6 +14,8 @@
     "dist:portable": "npm run build && electron-builder --win portable --x64 --publish never",
     "pack": "npm run build && electron-builder --win --dir --publish never",
     "build:promo": "npm run build && tsx scripts/build-promo.ts",
+    "build:supporter": "tsx scripts/build-supporter.ts",
+    "media:supporter": "npm run build:promo && npm run build:supporter && tsx scripts/supporter/media.ts",
     "format": "prettier --write \"src/**/*.ts\" \"scripts/**/*.ts\" \"tests/**/*.ts\" playwright.config.ts",
     "format:check": "prettier --check \"src/**/*.ts\" \"scripts/**/*.ts\" \"tests/**/*.ts\" playwright.config.ts",
     "test:promo": "npm run build:promo && tsx scripts/test-promo.ts",

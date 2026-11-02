@@ -1,3 +1,13 @@
+# Version 2.6.1 Supporter delivery verification — 2026-11-02
+
+Verified locally on Windows. `npm run check` passed formatting, strict TypeScript, **56 unit/architecture tests and 39 development Electron tests**. The standalone promo suite passed all **24 scenarios**. The Windows x64 NSIS installer built successfully; `npm run verify:release` verified its SHA-512 update manifest and blockmap. **16 packaged-executable tests** passed for Supporter imports, Toolkit, personalization, backups and modes. The installer is `dist/Dynamic-Island-Pro-Setup-2.6.1.exe`; signing was skipped because no certificate is configured.
+
+New tests exercise each of the six layouts in a fresh isolated app profile and the combined pack with existing notes, profiles, bookmarks, clocks, pinned-app storage and Quran favorites/listening position. They cover import without activation, exact reimport, name collisions, profile capacity, partial application that preserves unrelated preferences, malformed files, cancellation, reload and standard-backup round trips. No user's live profile was used.
+
+Customer output: `artifacts/supporter/Dynamic-Island-Supporter-1.0.0.zip`, with six individual profiles, combined import, six previews, English/Arabic HTML guide, package terms, GPL text and SHA-256 manifest. Archive verification checked all 16 manifested files, exact archive contents, all six profiles/previews and both support-email links. Marketing output: `artifacts/supporter/Supporter-Marketing-Kit.zip`, with covers, thumbnail, listing/captions/workbook and three scenarios in both languages (six H.264 1080×1920 MP4s, approximately 14–17 seconds each). All videos decoded successfully; browser rendering produced no page errors. The guide was checked at 390px and desktop sizes; Arabic guide, cover and video frames were visually inspected.
+
+Evidence: `artifacts/supporter/package-verification.json`, `media-verification.json`, `qa/`, and `test-results/`. Media uses the real browser renderer with staged data; it is not proof of native drag/drop, live music or completed purchases. Account support email is owner-provided: `Byosry@gmail.com`. Gumroad was at its login page in the accessible browser. No live checkout, test purchase, payout, social post or GitHub release was completed by this task. The free 2.6.1 release must be available before activating sales. Earlier live-provider evidence below is historical and was not rerun for this import-only change.
+
 # Version 2.6.0 verification — 2026-11-02
 
 Verified locally on Windows with Node 24.14.1 and Electron 44.7.2.

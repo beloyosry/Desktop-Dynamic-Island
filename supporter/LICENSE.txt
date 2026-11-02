@@ -1,0 +1,23 @@
+Dynamic Island Pro Supporter Pack 1.0.0
+Copyright (C) 2026 Belal Yosry
+
+The profile JSON files and installation guide in this package are licensed under
+GNU GPL version 3. See GPL-3.0.txt. The editable JSON files are their preferred
+source form. You may use, modify and redistribute them under that license.
+
+This purchase supports development and pays for curation and seven calendar days
+of email help installing/importing this pack, starting at purchase. It does not
+unlock exclusive app features, include custom development, promise future packs,
+or provide unlimited support. The underlying Windows app remains free.
+You can create equivalent layouts using the free app's personalization controls.
+
+For installation help, email Byosry@gmail.com. Include your order reference, app version and a
+description of the import issue. Do not send passwords or your private backup.
+
+Preview images use the real application renderer with staged demonstration data.
+The desktop backdrop is illustrative; no wallpaper is installed by these profiles.
+Third-party applications, songs and files shown are not included in the pack.
+Windows 10/11 x64 and Dynamic Island Pro 2.6.1 or newer are required.
+
+The Windows application is distributed separately under GPL-3.0-only:
+https://github.com/beloyosry/Desktop-Dynamic-Island

@@ -3,17 +3,28 @@
 <head><base href="../../">
   <meta charset="utf-8">
   
-  <title>Nova Island</title>
-  <link rel="stylesheet" href="style.css">
-<style>*, *::before, *::after { transition: none !important; }</style></head>
-<body>
+  <title>Dynamic Island Pro</title>
+  <link rel="stylesheet" href="out/renderer/island/style.css">
+  <link rel="stylesheet" href="out/renderer/island/glass.css">
+  <link rel="stylesheet" href="out/renderer/island/glass-page.css">
+  <link rel="stylesheet" href="out/renderer/island/toolkit.css">
+  <link rel="stylesheet" href="out/renderer/island/notifications.css">
+  <link rel="stylesheet" href="out/renderer/island/quran.css">
+</head>
+<body data-surface="island">
   <div id="island" class="idle" role="region" aria-label="Dynamic Island">
+    <!-- iOS Notch Ears (liquid concave shoulders when docked) -->
+    <div class="notch-ear ear-l" aria-hidden="true"></div>
+    <div class="notch-ear ear-r" aria-hidden="true"></div>
+
     <div class="clip">
+
       <!-- glass: blurred live backdrop + tint + album glow + sheen -->
       <canvas id="bd" aria-hidden="true"></canvas>
       <div class="tint" aria-hidden="true"></div>
       <div class="glow" aria-hidden="true"></div>
       <div class="sheen" aria-hidden="true"></div>
+      <div class="notification-surface" aria-hidden="true"><i></i><span></span></div>
       <!-- IDM Nova: thin liquid progress line along the bottom edge -->
       <div class="dl-line" aria-hidden="true"><b></b></div>
       <!-- privacy: orange = microphone, green = camera in use -->
@@ -190,6 +201,7 @@
           <div class="chip"><span class="dot"></span><span id="x-app-name">Idle</span></div>
           <nav class="seg" role="tablist" aria-label="Views">
             <span class="seg-thumb" aria-hidden="true"></span>
+            <button role="tab" data-tab="toolkit" class="tab" aria-label="Toolkit"><svg class="s" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><path d="M17.5 3v7M14 6.5h7M3 17.5h7"/><circle cx="17.5" cy="17.5" r="3.5"/></svg><span>Toolkit</span></button>
             <button role="tab" data-tab="media" class="tab" aria-label="Music">
               <svg class="s" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span>Music</span>
             </button>
@@ -198,6 +210,12 @@
             </button>
             <button role="tab" data-tab="shelf" class="tab" aria-label="Shelf">
               <svg class="s" viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11Z"/></svg><span>Shelf</span><i class="badge" id="shelf-badge"></i>
+            </button>
+            <button role="tab" data-tab="tools" class="tab" aria-label="Tools">
+              <svg class="s" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>Tools</span>
+            </button>
+            <button role="tab" data-tab="notes" class="tab" aria-label="Notes">
+              <svg class="s" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg><span>Notes</span>
             </button>
             <button role="tab" data-tab="downloads" class="tab" aria-label="Downloads" hidden>
               <svg class="s" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg><span>Downloads</span><i class="badge" id="dl-badge"></i>
@@ -208,17 +226,41 @@
             <button role="tab" data-tab="timer" class="tab" aria-label="Timer">
               <svg class="s" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M10 2h4"/></svg><span>Timer</span>
             </button>
+            <button role="tab" data-tab="quran" class="tab" aria-label="Quran player">
+              <svg class="s" viewBox="0 0 24 24"><path d="M12 5c-3-2-7-2-9 0v15c2-2 6-2 9 0 3-2 7-2 9 0V5c-2-2-6-2-9 0Zm0 0v15"/></svg><span>Quran</span>
+            </button>
             <button role="tab" data-tab="system" class="tab" aria-label="System">
               <svg class="s" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg><span>System</span>
             </button>
           </nav>
           <div class="clock">
+            <button class="gear notification-trigger" id="open-notifications" title="Notifications" aria-label="Notifications" aria-haspopup="dialog" aria-controls="notification-center" aria-expanded="false"><svg class="s" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 21h4"/></svg><span id="notification-count" hidden></span></button>
+            <button class="gear" id="open-commands" title="Quick actions (Ctrl+K)" aria-label="Quick actions"><svg class="s" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg></button>
+            <button class="gear" id="open-modes" title="Modes &amp; Mods" aria-label="Modes and Mods"><svg class="s" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Zm-9 9 9 5 9-5M3 16l9 5 9-5"/></svg></button>
             <button class="gear" id="open-settings" title="Settings" aria-label="Settings"><svg class="s" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg></button>
             <span class="wx-mini" id="wx-mini" hidden><svg class="s" viewBox="0 0 24 24"></svg><b></b></span>
             <span class="clock-time"><b id="x-clock"></b><span id="x-date"></span></span>
           </div>
         </header>
 
+        <section id="notification-center" class="notification-center" role="dialog" aria-modal="true" aria-label="Notifications" hidden>
+          <button id="notification-backdrop" class="notification-backdrop" aria-label="Close notification tray" tabindex="-1"></button>
+          <div class="notification-panel">
+            <header class="notification-header"><div><h2>Notifications</h2><p id="notification-summary">Your recent island alerts</p></div><button id="notification-read-all" title="Mark all as read" aria-label="Mark all notifications as read"><svg class="s" viewBox="0 0 24 24"><path d="m3 12 5 5L19 6m-5 11 7-7"/></svg></button><button id="notification-clear" title="Clear all" aria-label="Clear all notifications"><svg class="s" viewBox="0 0 24 24"><path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7m4-7v7"/></svg></button><button id="notification-close" title="Close" aria-label="Close notifications">×</button></header>
+            <div class="notification-controls"><div class="notification-filters" aria-label="Notification filter"><button data-notification-filter="all" aria-pressed="true">All</button><button data-notification-filter="unread" aria-pressed="false">Unread</button></div><input id="notification-query" type="search" maxlength="100" placeholder="Search alerts…" aria-label="Search notifications"></div>
+            <div class="notification-body"><div id="notification-list" class="notification-list" aria-label="Recent notifications"></div><div id="notification-empty" class="notification-empty"><span class="notification-empty-drop" aria-hidden="true"></span><b id="notification-empty-title">A quiet little inbox</b><p id="notification-empty-detail">Your recent island alerts will appear here.</p></div></div>
+            <footer class="notification-footer"><span id="notification-status" role="status" aria-live="polite">Kept locally for seven days</span><button id="notification-preview">Preview drop</button></footer>
+          </div>
+          <div class="notification-water" aria-hidden="true"><i class="notification-drop"></i><i class="notification-ring"></i><i class="notification-ring second"></i></div>
+        </section>
+        <section id="command-panel" class="command-panel" role="dialog" aria-modal="true" aria-label="Quick actions" hidden>
+          <div class="command-search"><svg class="s" viewBox="0 0 24 24"><path d="m13 2-8 12h6l-1 8 9-13h-7z"/></svg><input id="command-query" type="search" placeholder="Find a tool, tab, or theme&#8230;" autocomplete="off" aria-label="Find an action" role="combobox" aria-expanded="true" aria-controls="command-results" aria-autocomplete="list"><button id="command-close" aria-label="Close quick actions">Esc</button></div>
+          <div id="command-results" role="listbox" aria-label="Actions"></div>
+          <div class="command-footer"><span>&#8593; &#8595; to navigate</span><span>Enter to run</span><kbd>Ctrl K</kbd></div>
+        </section>
+
+        <section id="v-toolkit" class="view" role="tabpanel" aria-label="Toolkit"></section>
+        <section id="v-quran" class="view" role="tabpanel" aria-label="Quran player"></section>
         <!-- MUSIC -->
         <section id="v-media" class="view none" role="tabpanel">
           <div class="empty">
@@ -322,6 +364,93 @@
           </div>
         </section>
 
+        <!-- TOOLS & CONTROL CENTER -->
+        <section id="v-tools" class="view" role="tabpanel">
+          <div class="tools-wrap">
+            <div class="tools-head">
+              <div class="tools-heading"><b>Control Center</b><span class="sub" id="theme-name">Midnight</span></div>
+              <div class="tools-theme-chips" id="theme-chips" role="group" aria-label="Color themes"></div>
+            </div>
+            <div class="tools-grid">
+              <button class="tool-btn" id="tool-snip" title="Take a snip / screenshot">
+                <div class="tool-icon"><svg class="s" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+                <div class="tool-info">
+                  <div class="tool-title">Screen Snip</div>
+                  <div class="tool-desc">Clipboard &amp; Shelf</div>
+                </div>
+              </button>
+              <button class="tool-btn" id="tool-fullshot" title="Capture entire screen">
+                <div class="tool-icon"><svg class="s" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+                <div class="tool-info">
+                  <div class="tool-title">Full Screen</div>
+                  <div class="tool-desc">Instant Capture</div>
+                </div>
+              </button>
+              <button class="tool-btn" id="tool-pin" title="Pin island expanded">
+                <div class="tool-icon"><svg class="s" viewBox="0 0 24 24"><path d="M12 2v8M5 10l7 7 7-7M5 10h14M12 17v5"/></svg></div>
+                <div class="tool-info">
+                  <div class="tool-title" id="tool-pin-title">Pin Island</div>
+                  <div class="tool-desc" id="tool-pin-desc">Keep Expanded</div>
+                </div>
+              </button>
+              <button class="tool-btn" id="tool-mute" title="Toggle audio mute">
+                <div class="tool-icon"><svg class="s" viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></svg></div>
+                <div class="tool-info">
+                  <div class="tool-title" id="tool-mute-title">Mute</div>
+                  <div class="tool-desc">System Audio</div>
+                </div>
+              </button>
+              <button class="tool-btn" id="tool-trash" title="Empty Recycle Bin">
+                <div class="tool-icon"><svg class="s" viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div>
+                <div class="tool-info">
+                  <div class="tool-title">Empty Trash</div>
+                  <div class="tool-desc">Recycle Bin</div>
+                </div>
+              </button>
+              <button class="tool-btn" id="tool-lock" title="Lock Windows session">
+                <div class="tool-icon"><svg class="s" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+                <div class="tool-info">
+                  <div class="tool-title">Lock PC</div>
+                  <div class="tool-desc">Win + L</div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- NOTES & CHECKLIST SCRATCHPAD -->
+        <section id="v-notes" class="view" role="tabpanel">
+          <div class="notes-wrap">
+            <div class="notes-head">
+              <div class="notes-seg">
+                <button class="notes-tab active" data-notes-view="text">Scratchpad</button>
+                <button class="notes-tab" data-notes-view="todos">To-Do <span class="todos-badge" id="todos-badge">0</span></button>
+              </div>
+              <div class="notes-actions">
+                <span class="notes-stats" id="notes-stats">0 words</span>
+                <button class="pill small" id="notes-copy" title="Copy notes to clipboard">Copy</button>
+                <button class="pill small" id="notes-clear" title="Clear notes">Clear</button>
+              </div>
+            </div>
+            <div class="notes-body">
+              <div class="notes-pane on" id="notes-pane-text">
+                <textarea id="notes-text" class="notes-textarea" placeholder="Type quick notes, ideas, code snippets or links here... Auto-saves instantly." spellcheck="false"></textarea>
+              </div>
+              <div class="notes-pane" id="notes-pane-todos">
+                <form id="todo-form" class="todo-form">
+                  <input type="text" id="todo-input" placeholder="Add a task &amp; press Enter..." spellcheck="false" autocomplete="off">
+                  <button type="submit" class="pill small primary">Add</button>
+                </form>
+                <div id="todo-list" class="todo-list"></div>
+                <div class="todo-foot">
+                  <span id="todo-left" class="sub">0 tasks left</span>
+                  <button id="todo-clear-done" class="pill small">Clear Done</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <!-- DOWNLOADS (IDM Nova) -->
         <section id="v-downloads" class="view dl-offline" role="tabpanel">
           <div class="dl-empty">
@@ -366,9 +495,13 @@
           <div class="pr-loading" id="pr-loading">جاري تحميل مواقيت الصلاة…</div>
         </section>
 
-        <!-- TIMER -->
+        <!-- TIMER & STOPWATCH -->
         <section id="v-timer" class="view" role="tabpanel">
-          <div class="timer">
+          <div class="timer-mode-bar">
+            <button class="timer-mode-btn active" id="tm-mode-timer">Timer</button>
+            <button class="timer-mode-btn" id="tm-mode-sw">Stopwatch</button>
+          </div>
+          <div class="timer" id="tm-subview">
             <div class="ring">
               <svg viewBox="0 0 100 100" aria-hidden="true">
                 <circle cx="50" cy="50" r="44" class="track"/>
@@ -389,6 +522,10 @@
                   <svg class="s" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4M9 2h6M17.5 6.5 19 5"/></svg>Focus
                 </button>
               </div>
+              <form id="tm-custom" class="timer-custom">
+                <label for="tm-minutes">Custom</label><input id="tm-minutes" type="number" required min="1" max="240" step="1" value="15" aria-label="Timer minutes"><span>min</span><button class="pill small" type="submit">Set</button>
+              </form>
+              <div class="timer-extend" role="group" aria-label="Extend timer"><span>Need a little longer?</span><button data-extend="1">+1 min</button><button data-extend="5">+5 min</button></div>
               <div class="tm-actions">
                 <button id="tm-reset" class="pill" aria-label="Reset timer">
                   <svg class="s" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
@@ -397,15 +534,35 @@
               </div>
             </div>
           </div>
+          <div class="stopwatch" id="sw-subview" hidden>
+            <div class="sw-display">
+              <b id="sw-digits">00:00<small>.00</small></b>
+              <span class="sub" id="sw-state">Ready</span>
+            </div>
+            <div class="sw-controls">
+              <button id="sw-reset" class="pill small">Reset</button>
+              <button id="sw-lap" class="pill small" disabled>Lap</button>
+              <button id="sw-start" class="pill small primary">Start</button>
+            </div>
+            <div class="sw-laps" id="sw-laps"></div>
+          </div>
         </section>
 
         <!-- SYSTEM -->
         <section id="v-system" class="view" role="tabpanel">
           <div class="sys">
             <div class="card wx" id="wx-card">
-              <div class="wx-top"><svg class="s" id="wx-ico" viewBox="0 0 24 24"></svg><b id="wx-temp">--°</b></div>
+              <div class="wx-top">
+                <svg class="s" id="wx-ico" viewBox="0 0 24 24"></svg>
+                <b id="wx-temp">--°</b>
+                <button class="wx-refresh" id="wx-refresh-btn" title="Refresh weather"><svg class="s" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg></button>
+              </div>
               <div class="wx-desc" id="wx-desc">Loading weather…</div>
               <div class="sub" id="wx-meta"></div>
+              <div class="wx-extra-row" id="wx-extra" hidden>
+                <span class="wx-tag" id="wx-humidity">💧 --%</span>
+                <span class="wx-tag" id="wx-wind">💨 -- km/h</span>
+              </div>
             </div>
 
             <div class="card meters">
@@ -432,9 +589,12 @@
             <div class="card clips">
               <div class="clips-head">
                 <span><svg class="s" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg>Clipboard</span>
-                <button id="clip-clear" class="mini-btn" aria-label="Clear clipboard history">
-                  <svg class="s" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
-                </button>
+                <div class="clips-actions">
+                  <input type="text" id="clip-filter" placeholder="Filter clips..." class="clip-search-input" spellcheck="false" autocomplete="off">
+                  <button id="clip-clear" class="mini-btn" aria-label="Clear clipboard history" title="Clear history">
+                    <svg class="s" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                  </button>
+                </div>
               </div>
               <div id="clip-list" class="clip-list"></div>
             </div>
@@ -486,25 +646,9 @@
     <button class="sc-btn" id="sc-btn" hidden></button>
     <span class="sc-bar"><b></b></span>
   </div>
-  <script src="promo/src/mock.js"></script><script src="promo/src/pre.js"></script><script src="renderer.js"></script>
-  <script src="views/apps.js"></script>
-  <script src="views/shelf.js"></script>
-  <script src="views/system.js"></script>
-  <script src="views/prayer.js"></script>
-  <script src="views/downloads.js"></script>
-  <script src="views/reminders-data.js"></script>
-  <script src="views/reminders.js"></script>
-  <script src="views/privacy.js"></script>
-  <script src="views/keyboard.js"></script>
-  <script src="views/calendar.js"></script>
-  <script src="views/screenshot.js"></script>
-  <script src="views/update.js"></script>
-  <script src="views/network.js"></script>
-  <script src="views/companion.js"></script>
-  <script src="views/smartclip.js"></script>
-  <script src="views/nova.js"></script>
-  <script src="views/scene.js"></script>
-  <script src="views/water.js"></script>
-  <script src="views/ready.js"></script>
-<script src="promo/src/drive.js"></script></body>
+  <script src="promo/src/mock.js"></script>
+<script src="promo/src/pre.js"></script>
+<script src="out/promo/island.js"></script>
+<script src="promo/src/drive.js"></script>
+</body>
 </html>

@@ -6,6 +6,8 @@ if not exist "node_modules\electron\dist\electron.exe" (
   pause
   exit /b 1
 )
+call npm.cmd run build
+if errorlevel 1 exit /b 1
 start "" "node_modules\electron\dist\electron.exe" "%~dp0." --setup
 echo Nova Island is starting. The result is written to setup-log.txt
 timeout /t 4 >nul

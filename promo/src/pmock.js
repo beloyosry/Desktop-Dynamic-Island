@@ -16,6 +16,7 @@
   window.prefs = {
     features: async () => ({ ...features }), general: async () => ({ ...general }),
     setFeatures: noop, resetFeatures: noop, onFeatures: noop, setGeneral: noop, onGeneral: noop,
+    onPage: noop, updates: { status: async () => ({ phase: 'unavailable', distribution: 'development', currentVersion: '2.1.0', availableVersion: null, automatic: true, percent: 0, transferred: 0, total: 0, bytesPerSecond: 0, lastChecked: null, message: '' }), onState: noop, check: noop, install: noop, openReleases: noop, openCenter: noop },
     window: noop, previewReminder: noop,
     bridgeStatus: async () => ({ state: 'ok', detail: '' }), openLog: noop, copyReport: async () => true, openSupport: noop, downloadFolders: async () => [{ path: 'C:/Users/user/Downloads', fixed: true }, { path: 'D:/Downloads', fixed: false }], addDownloadFolder: async () => [], removeDownloadFolder: async () => [],
     location: async () => ({ mode: 'auto', name: 'Giza' }), searchCity: async () => [], setLocation: noop, onLocation: noop,

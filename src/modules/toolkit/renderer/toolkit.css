@@ -1,0 +1,79 @@
+/* The toolkit is a compact work surface: navigation on the left, one active tool on the right. */
+.topbar .seg { overflow-x:auto; scrollbar-width:none; min-width:0; max-width:100%; }
+.topbar .tab { flex-shrink:0; }
+#v-toolkit { min-height:0; overflow:hidden; }
+.toolkit-shell { display:grid; grid-template-columns:128px minmax(0,1fr); gap:15px; flex:1; min-height:0; padding:1px 0 2px; }
+.toolkit-nav { min-height:0; display:flex; flex-direction:column; gap:2px; padding-right:11px; border-right:1px solid #ffffff1a; overflow-y:auto; scrollbar-width:thin; }
+.toolkit-brand { display:flex; align-items:center; gap:6px; padding:0 0 6px; font-size:13px; letter-spacing:-.3px; }
+.toolkit-brand img { object-fit:contain; }
+.toolkit-nav > button { display:flex; align-items:center; gap:7px; min-height:27px; flex-shrink:0; padding:5px 7px; text-align:left; border-radius:9px; font-size:10.5px; color:var(--text-2); transition:background .18s,color .18s; }
+.toolkit-nav > button > span { width:17px; text-align:center; color:var(--accent); font-size:14px; }
+.toolkit-nav > button:hover { background:#ffffff0e; color:#fff; }
+.toolkit-nav > button[aria-pressed="true"] { background:linear-gradient(120deg,rgba(var(--theme-rgb),.25),#ffffff0d); color:#fff; box-shadow:inset 0 0 0 1px #ffffff22; }
+.toolkit-nav > .toolkit-personalize { margin-top:auto; color:var(--text-3); min-height:24px; font-size:10px; }
+.toolkit-main { min-width:0; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; padding:0 4px 0 0; }
+.toolkit-nav,.toolkit-main { scrollbar-color:#ffffff38 transparent; }
+.toolkit-nav > button { white-space:nowrap; }
+.toolkit-nav > button > span { flex-shrink:0; }
+.toolkit-main > section { display:flex; flex-direction:column; gap:10px; }
+.tk-heading { padding:1px 0 2px; }
+.tk-heading h2 { font-size:19px; font-weight:650; margin:0 0 4px; letter-spacing:-.65px; }
+.tk-heading small { display:block; font-size:10.5px; color:var(--text-2); line-height:1.45; }
+.tk-form { display:flex; align-items:center; gap:7px; min-width:0; }
+.toolkit-main :is(input:not([type="range"]):not([type="checkbox"]),select,textarea) { width:100%; min-width:0; border:1px solid #ffffff25; border-radius:10px; background:#101d354d; color:var(--text-1); padding:8px 10px; font:inherit; font-size:11px; outline-offset:1px; user-select:text; }
+.toolkit-main input::placeholder,.toolkit-main textarea::placeholder { color:#c5d1e59c; }
+.toolkit-main select { background:#223148; cursor:pointer; }
+.toolkit-main textarea { height:108px; min-height:65px; resize:vertical; }
+.tk-button { flex-shrink:0; border:1px solid #ffffff26; border-radius:10px; padding:8px 11px; background:#ffffff0d; color:var(--text-1); font-size:10.5px; font-weight:550; transition:background .16s; }
+.tk-button:hover { background:#ffffff20; }
+.tk-button.primary { background:rgba(var(--theme-rgb),.25); border-color:rgba(var(--theme-rgb),.4); }
+.tk-result { display:flex; align-items:center; justify-content:space-between; gap:10px; min-width:0; padding:15px; border-radius:18px; background:linear-gradient(140deg,rgba(var(--theme-rgb),.14),#ffffff06); border:1px solid #ffffff22; box-shadow:inset 0 1px 0 #ffffff30; }
+.tk-result output { font-size:26px; letter-spacing:-.8px; font-variant-numeric:tabular-nums; overflow-wrap:anywhere; user-select:text; }
+#tk-unit-result { font-size:21px; }
+.tk-label { display:flex; flex-direction:column; gap:5px; font-size:10px; color:var(--text-2); min-width:0; }
+.tk-units > label { flex:1; }
+.tk-history { display:flex; flex-wrap:wrap; gap:6px; }
+.tk-history button { padding:5px 8px; border-radius:8px; background:#ffffff08; font-size:10px; color:var(--text-2); max-width:100%; overflow:hidden; text-overflow:ellipsis; }
+.tk-history button:hover { background:#ffffff16; }
+.tk-bookmarks,.tk-clocks { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+.tk-bookmark { display:flex; min-width:0; align-items:center; border:1px solid #ffffff20; background:#ffffff08; border-radius:13px; padding:2px 6px 2px 0; }
+.tk-bookmark-open { display:flex; flex:1; min-width:0; flex-direction:column; align-items:flex-start; gap:3px; padding:10px 12px; }
+.tk-bookmark b { font-size:11px; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.tk-bookmark small { font-size:9px; color:var(--text-3); max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.tk-bookmark:hover { background:#ffffff12; }
+.tk-remove { width:21px; height:23px; border-radius:7px; flex-shrink:0; color:var(--text-3); font-size:17px; }
+.tk-remove:hover { color:#ffc5d3; background:#ff759a18; }
+.tk-empty { grid-column:1/-1; padding:22px 16px; margin:0; font-size:12px; line-height:1.6; color:var(--text-2); border:1px dashed #ffffff2b; border-radius:17px; }
+.tk-link-form input:first-child { max-width:115px; }
+.tk-clock { position:relative; display:flex; flex-direction:column; gap:5px; padding:11px 14px; border:1px solid #ffffff1f; border-radius:17px; background:linear-gradient(145deg,#ffffff10,#ffffff04); }
+.tk-clock b { font-size:11px; padding-right:12px; }
+.tk-clock strong { font-size:23px; font-weight:550; letter-spacing:-.8px; font-variant-numeric:tabular-nums; }
+.tk-clock small { font-size:9px; color:var(--text-3); }
+.tk-clock .tk-remove { position:absolute; top:6px; right:5px; }
+.tk-generator-length { display:flex; align-items:center; gap:12px; font-size:11px; }
+.tk-generator-length input { flex:1; min-width:0; accent-color:var(--accent); }
+.tk-generator-length output { width:22px; text-align:right; }
+.tk-check { display:flex; align-items:center; gap:6px; font-size:11px; color:var(--text-2); }
+.tk-check input { accent-color:var(--accent); }
+.tk-secret { padding:12px; }
+.tk-secret output { font-family:"Cascadia Code",Consolas,monospace; font-size:13px; letter-spacing:0; }
+.tk-note { font-size:9px; line-height:1.5; color:var(--text-3); }
+.tk-presets { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+.tk-preset { display:flex; flex-direction:column; text-align:left; gap:5px; padding:12px; border:1px solid #ffffff22; border-radius:16px; background:linear-gradient(135deg,#aa8eff24,#ffffff06); }
+.tk-preset b { font-size:12px; font-weight:600; }
+.tk-preset small { font-size:9px; line-height:1.45; color:var(--text-2); }
+.tk-preset-focus { background:linear-gradient(135deg,#7adad524,#ffffff06); }
+.tk-preset-creator { background:linear-gradient(135deg,#d893ff27,#ffffff06); }
+.tk-preset-minimal { background:#ffffff08; }
+.tk-preset:hover { border-color:#ffffff60; }
+.tk-preset[aria-pressed="true"] { border-color:var(--accent); }
+.tk-preset[data-quick-mode] { background:linear-gradient(135deg,color-mix(in srgb,var(--mode-color) 16%,transparent),#ffffff05); }
+.tk-preset[data-quick-mode][aria-pressed="true"] { border-color:var(--mode-color); }
+#tk-mode-state { font-size:11px; color:var(--accent); }
+.tk-profile-list { display:flex; flex-wrap:wrap; gap:6px; }
+.tk-status { margin:8px 0 0; font-size:10px; line-height:1.5; color:#b8eadf; }
+.tk-status:empty { margin:0; }
+:root[data-density="compact"] .l-expanded { padding:13px 18px 16px; }
+:root[data-density="compact"] .toolkit-main > section { gap:7px; }
+:root[data-density="compact"] .tk-clock,:root[data-density="compact"] .tk-preset { padding:9px 12px; }
+:root[data-transparency="reduced"] :is(.tk-result,.tk-preset,.tk-clock,.tk-bookmark) { background:#223047; }

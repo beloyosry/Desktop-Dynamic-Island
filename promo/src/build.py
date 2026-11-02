@@ -180,8 +180,8 @@ def build(name, cfg, profile):
 
 def main():
     WORK.mkdir(exist_ok=True)
-    stage_page('index.html', 'island.html', ['promo/src/mock.js', 'promo/src/pre.js'], ['promo/src/drive.js'], '../../')
-    stage_page('prefs/index.html', 'prefs.html', ['../promo/src/pmock.js'], [], '../../prefs/')
+    # Rebuild the TypeScript app and the promo-only compatibility entry before rendering.
+    subprocess.run(['npm.cmd', 'run', 'build:promo'], cwd=ROOT, check=True)
     httpd = serve()
     profile = tempfile.mkdtemp(prefix='nova-promo-')
     try:

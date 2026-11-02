@@ -1,0 +1,68 @@
+/* One falling drop and two rings. No continuous animation or additional blur surface. */
+.notification-trigger { position:relative; overflow:visible; }
+#notification-count { position:absolute; top:-3px; right:-4px; min-width:13px; height:13px; padding:0 3px; border-radius:9px; display:grid; place-items:center; font-size:8px; line-height:1; font-weight:750; color:#092239; background:#b8edff; box-shadow:0 0 0 2px #233449; }
+.notification-center { position:absolute; inset:0; z-index:15; }
+.notification-backdrop { position:absolute; inset:0; width:100%; height:100%; border-radius:inherit; background:linear-gradient(90deg,#07101f33,#07101f77); cursor:default; }
+.notification-panel { position:absolute; top:12px; right:14px; bottom:14px; width:min(470px,calc(100% - 28px)); display:flex; flex-direction:column; min-height:0; border-radius:26px; border:1px solid #d5efff55; background:linear-gradient(145deg,#b7e8ff17,#d8ccff08 48%,#9cdcc506),rgba(var(--theme-base-rgb),.98); box-shadow:inset 0 1px 0 #ffffff50,inset 1px 0 0 #ffffff13,0 14px 38px #0006; overflow:hidden; transform-origin:88% 0%; }
+.notification-header { display:flex; align-items:center; gap:3px; padding:16px 16px 10px; }
+.notification-header > div { flex:1; min-width:0; }
+.notification-header h2 { font-size:20px; font-weight:650; letter-spacing:-.7px; margin:0 0 4px; }
+.notification-header p { margin:0; color:var(--text-2); font-size:10px; }
+.notification-header > button { display:grid; place-items:center; width:28px; height:28px; border-radius:10px; color:#d3e4f2; }
+.notification-header > button:hover { background:#ffffff14; }
+#notification-close { font-size:23px; }
+.notification-controls { display:flex; gap:10px; align-items:center; padding:0 16px 11px; }
+.notification-filters { display:flex; gap:2px; padding:3px; border-radius:12px; border:1px solid #ffffff17; background:#07101b33; }
+.notification-filters button { border-radius:9px; padding:5px 11px; font-size:10px; color:var(--text-2); }
+.notification-filters button[aria-pressed="true"] { background:#c2eaff24; color:#ecf9ff; box-shadow:inset 0 1px 0 #ffffff2b; }
+#notification-query { flex:1; min-width:0; width:100%; background:#080e1f40; border:1px solid #ffffff1e; border-radius:11px; padding:8px 10px; font:inherit; font-size:10px; color:var(--text-1); user-select:text; }
+#notification-query::placeholder { color:var(--text-3); }
+.notification-body { flex:1; min-height:0; position:relative; display:flex; }
+.notification-list { flex:1; min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:0 10px 0 16px; scrollbar-width:thin; scrollbar-color:#c8e9ff3d transparent; }
+.notification-item { display:flex; gap:10px; align-items:flex-start; border:1px solid #cfe9ff20; border-radius:16px; padding:11px 9px 11px 12px; margin-bottom:8px; background:linear-gradient(115deg,#bce6ff0d,#ffffff03); }
+.notification-item[data-read="false"] { border-color:#bbe8ff40; background:linear-gradient(115deg,#9ddaff18,#c4c8ff08); }
+.notification-symbol { display:grid; place-items:center; width:27px; height:27px; flex-shrink:0; border-radius:10px; background:#a9d5ff18; color:#a9d9ff; font-size:18px; }
+.notification-item[data-category="downloads"] .notification-symbol { color:#9ce5cd; background:#7ce7bc15; }
+.notification-item[data-category="focus"] .notification-symbol { color:#e5c1ff; background:#d0a8ff19; }
+.notification-item[data-category="reminders"] .notification-symbol { color:#f1d098; background:#f1d09815; }
+.notification-item[data-category="wellbeing"] .notification-symbol { color:#8fe7f7; background:#71d6ff16; border-radius:50% 50% 50% 12%; }
+.notification-content { flex:1; min-width:0; text-align:start; padding:0; display:flex; flex-direction:column; gap:4px; }
+.notification-meta { color:var(--text-3); font-size:8px; }
+.notification-content b { font-size:11px; font-weight:600; line-height:1.45; overflow-wrap:anywhere; }
+.notification-item[data-read="false"] .notification-content b::before { content:""; display:inline-block; width:5px; height:5px; margin-inline-end:6px; border-radius:50%; background:#b8edff; vertical-align:middle; }
+.notification-detail { color:var(--text-2); font-size:10px; line-height:1.5; overflow-wrap:anywhere; }
+.notification-content :is(b,.notification-detail) { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.notification-dismiss { flex-shrink:0; width:22px; height:22px; border-radius:7px; font-size:18px; color:var(--text-3); }
+.notification-dismiss:hover { background:#ffffff18; color:#fff; }
+.notification-empty { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:8px; padding:12px 32px; pointer-events:none; }
+.notification-empty b { font-size:14px; letter-spacing:-.25px; }
+.notification-empty p { margin:0; max-width:250px; color:var(--text-2); font-size:10px; line-height:1.6; }
+.notification-empty-drop { width:25px; height:30px; border-radius:55% 55% 52% 8%; transform:rotate(-45deg); background:linear-gradient(135deg,#e2faffba,#84caff22 70%); border:1px solid #d3f4ff99; box-shadow:inset 3px 3px 8px #ffffff39,0 6px 18px #70caff18; margin-bottom:5px; }
+.notification-footer { display:flex; gap:10px; align-items:center; justify-content:space-between; min-height:33px; padding:8px 16px; border-top:1px solid #ffffff12; color:var(--text-3); font-size:9px; }
+.notification-footer button { flex-shrink:0; color:#c3eaff; padding:4px 6px; border-radius:7px; font-size:9px; }
+.notification-footer button:hover { background:#ffffff0e; }
+.notification-water { position:absolute; pointer-events:none; top:0; right:54px; width:110px; height:100px; visibility:hidden; }
+.notification-drop { position:absolute; width:18px; height:23px; top:0; left:46px; border-radius:55% 55% 52% 8%; background:linear-gradient(140deg,#ecfcff,#87d5ff77); border:1px solid #dcf7ffcc; box-shadow:inset 2px 2px 3px #fff8,0 3px 12px #7bd5ff40; opacity:0; }
+.notification-ring { position:absolute; width:64px; height:18px; left:24px; top:61px; border:1px solid #c4f2ffb3; border-radius:50%; opacity:0; box-shadow:0 0 7px #9ce1ff26,inset 0 0 7px #9ce1ff26; }
+.water-open .notification-water { visibility:visible; }
+.water-open .notification-drop { animation:notification-fall .62s cubic-bezier(.32,0,.45,1) both; }
+.water-open .notification-ring { animation:notification-ring .55s .27s ease-out both; }
+.water-open .notification-ring.second { animation-delay:.37s; }
+.water-enter .notification-panel { animation:notification-unfold .58s cubic-bezier(.2,.8,.2,1) both; }
+.notification-ping svg { animation:notification-bell .65s ease-out; }
+.notification-surface { position:absolute; inset:0; pointer-events:none; z-index:2; visibility:hidden; overflow:hidden; border-radius:inherit; }
+.notification-arrival .notification-surface { visibility:visible; }
+.notification-surface i { position:absolute; width:10px; height:14px; top:-12px; right:24%; border-radius:60% 60% 55% 8%; background:linear-gradient(135deg,#e8fbffcc,#88cfff33); opacity:0; }
+.notification-surface span { position:absolute; inset:4px; border:1px solid #c6eeff77; border-radius:inherit; opacity:0; }
+.notification-arrival .notification-surface i { animation:notification-fall .55s ease-in both; }
+.notification-arrival .notification-surface span { animation:notification-wash .65s .15s ease-out both; }
+#island.overlay-open ~ .scene-card { visibility:hidden; pointer-events:none; }
+@keyframes notification-fall { 0% { transform:translateY(-18px) rotate(-45deg) scale(.65,1.15); opacity:0; } 18% { opacity:.95; } 62% { transform:translateY(48px) rotate(-45deg) scale(.9,1.08); opacity:1; } 80% { transform:translateY(56px) rotate(-45deg) scale(1.4,.4); opacity:.6; } 100% { transform:translateY(60px) rotate(-45deg) scale(1.8,.15); opacity:0; } }
+@keyframes notification-ring { 0% { opacity:0; transform:scale(.25); } 20% { opacity:.9; } 100% { opacity:0; transform:scale(1.7,1.5); } }
+@keyframes notification-unfold { 0% { transform:translateY(-12px) scale(.94,.88); opacity:.2; } 65% { transform:translateY(2px) scale(1.005,1.01); opacity:1; } 100% { transform:none; opacity:1; } }
+@keyframes notification-wash { 0% { opacity:0; transform:scale(.85,.7); } 25% { opacity:.7; } 100% { opacity:0; transform:scale(1.03,1.1); } }
+@keyframes notification-bell { 0%,100% { transform:scale(1); } 35% { transform:scale(.8,1.16); } 65% { transform:scale(1.12,.94); } }
+:root[data-transparency="reduced"] .notification-panel { background:#17263a; }
+:root[data-transparency="reduced"] .notification-item { background:#22354b; }
+:root[data-motion="reduced"] :is(.notification-drop,.notification-ring,.notification-panel,.notification-surface i,.notification-surface span,.notification-ping svg) { animation:none !important; }
+@media(prefers-reduced-motion:reduce) { :is(.notification-drop,.notification-ring,.notification-panel,.notification-surface i,.notification-surface span,.notification-ping svg) { animation:none !important; } }

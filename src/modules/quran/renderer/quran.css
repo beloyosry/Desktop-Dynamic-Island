@@ -1,0 +1,50 @@
+#v-quran { min-height:0; overflow:hidden; }
+.quran-shell { flex:1; min-width:0; min-height:0; display:flex; flex-direction:column; gap:7px; }
+.quran-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.quran-heading>div { display:flex; align-items:baseline; gap:12px; min-width:0; }
+.quran-heading h2 { margin:0; font-family:"Segoe UI",sans-serif; font-size:21px; font-weight:600; color:#dcefe1; white-space:nowrap; }
+.quran-heading span { color:var(--text-3); font-size:9px; }
+.quran-shell button { border-radius:8px; }
+.quran-heading button,.qr-source { color:#b8dece; font-size:9px; padding:5px; white-space:nowrap; }
+.quran-library { display:grid; grid-template-columns:38% minmax(0,1fr); gap:14px; flex:1; min-height:0; }
+.quran-reciters,.quran-surahs { min-height:0; min-width:0; display:flex; flex-direction:column; gap:5px; }
+.quran-reciters { padding-right:12px; border-right:1px solid #c8f2dc1c; }
+.quran-shell :is(input[type="search"],select) { min-width:0; border:1px solid #d7f2e425; background:#0718123d; color:var(--text-1); border-radius:9px; font:inherit; font-size:10px; padding:5px 8px; }
+.quran-shell select { max-width:100%; }
+.quran-shell select option { background:#172b27; color:#fff; }
+.qr-search-row { display:flex; gap:4px; }
+.qr-search-row input { width:100%; }
+.qr-search-row button,#qr-star { flex-shrink:0; width:25px; color:#e7d3a1; font-size:18px; }
+.qr-scroll { overflow:auto; min-height:0; scrollbar-width:thin; scrollbar-color:#a9d6be40 transparent; overscroll-behavior:contain; }
+.qr-reciter { display:flex; flex-direction:column; align-items:stretch; gap:2px; padding:7px 9px; width:100%; text-align:start; margin-bottom:3px; border:1px solid transparent; }
+.qr-reciter b { font-size:12px; font-weight:500; color:#f0f7f2; text-align:start; }
+.qr-reciter small { font-size:8px; color:var(--text-3); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.qr-reciter[aria-pressed="true"] { background:linear-gradient(115deg,#92dcb628,#bcecd60a); border-color:#c3efdb45; }
+.qr-reciter:hover,.qr-surah-list button:hover { background:#c0f0d315; }
+.qr-more { width:100%; padding:7px; font-size:10px; color:#b7e7cf; }
+.qr-style-row { display:flex; align-items:center; gap:6px; }
+.qr-style-row select { flex:1; width:100%; }
+.qr-sr-only { position:absolute; width:1px; height:1px; padding:0; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+.qr-surah-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-content:start; gap:4px; flex:1; }
+.qr-surah-list button { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:6px 9px; background:#c5e9d80a; border:1px solid #d8eddf13; min-width:0; }
+.qr-surah-list button span { font-size:9px; color:#b2d3c3; }
+.qr-surah-list button b { font-size:12px; font-weight:500; }
+.qr-surah-list button[aria-pressed="true"] { border-color:#a3e6c570; background:#8ee4bb1b; }
+.qr-empty { color:var(--text-3); font-size:10px; line-height:1.6; grid-column:1/-1; }
+.quran-player { flex-shrink:0; border:1px solid #b7e6ce30; border-radius:15px; padding:8px 12px 6px; background:radial-gradient(ellipse at 20% 0,#b0efc91a,transparent 80%),#06140c36; }
+.qr-now { display:flex; justify-content:space-between; align-items:center; gap:12px; font-size:10px; }
+#qr-now-title { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+#qr-time { flex-shrink:0; color:var(--text-3); font-variant-numeric:tabular-nums; font-size:9px; }
+#qr-seek { display:block; width:100%; height:10px; margin:4px 0; accent-color:#b8e2c7; }
+.qr-controls { display:flex; align-items:center; gap:7px; min-height:25px; }
+.qr-controls>button { display:grid; place-items:center; width:25px; height:23px; font-size:19px; color:#d4ebdd; }
+.qr-controls .qr-play { background:#c8eadc; color:#122b20; font-size:12px; width:31px; }
+#qr-stop { font-size:11px; }
+#qr-volume { width:58px; height:12px; accent-color:#b8e2c7; }
+.qr-controls select { padding:3px 4px; font-size:9px; }
+.qr-auto { display:flex; gap:3px; align-items:center; font-size:9px; white-space:nowrap; }
+.qr-auto input { accent-color:#b8e2c7; width:11px; height:11px; margin:0; }
+.qr-controls .qr-source { width:auto; margin-left:auto; font-size:9px; }
+#qr-status { min-height:12px; font-size:9px; color:var(--text-3); white-space:nowrap; text-overflow:ellipsis; overflow:hidden; }
+.quran-shell audio { display:none; }
+.quran-shell :is(button,input,select):focus-visible { outline-offset:-2px; }

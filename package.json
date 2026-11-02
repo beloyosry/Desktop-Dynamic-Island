@@ -1,12 +1,24 @@
 {
   "name": "dynamic-island-pro",
-  "version": "2.0.0",
+  "version": "2.6.0",
   "description": "An interactive, ultra-smooth Dynamic Island for Windows desktop with live activities, smart tools & widgets",
-  "main": "nova.js",
+  "main": "out/main/index.js",
   "scripts": {
-    "start": "electron .",
-    "dist": "electron-builder --win nsis",
-    "dist:portable": "electron-builder --win portable"
+    "typecheck": "tsc --noEmit",
+    "build": "npm run typecheck && tsx scripts/build.ts",
+    "start": "npm run build && electron .",
+    "test": "tsx --test tests/unit/*.test.ts",
+    "test:e2e": "npm run build && playwright test",
+    "check": "npm run format:check && npm run typecheck && npm test && npm run test:e2e",
+    "dist": "npm run build && electron-builder --win nsis --x64 --publish never",
+    "dist:portable": "npm run build && electron-builder --win portable --x64 --publish never",
+    "pack": "npm run build && electron-builder --win --dir --publish never",
+    "build:promo": "npm run build && tsx scripts/build-promo.ts",
+    "format": "prettier --write \"src/**/*.ts\" \"scripts/**/*.ts\" \"tests/**/*.ts\" playwright.config.ts",
+    "format:check": "prettier --check \"src/**/*.ts\" \"scripts/**/*.ts\" \"tests/**/*.ts\" playwright.config.ts",
+    "test:promo": "npm run build:promo && tsx scripts/test-promo.ts",
+    "verify:release": "tsx scripts/verify-release.ts",
+    "profile:performance": "npm run build && tsx scripts/profile-performance.ts"
   },
   "author": {
     "name": "Belal Yosry",
@@ -23,8 +35,14 @@
   },
   "license": "GPL-3.0-only",
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^26.6.6",
     "electron": "^44.7.2",
-    "electron-builder": "^26.17.0"
+    "electron-builder": "^26.17.0",
+    "esbuild": "^0.28.2",
+    "prettier": "^3.9.10",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
   },
   "build": {
     "appId": "com.dynamicislandpro.app",
@@ -39,16 +57,14 @@
       "buildResources": "build"
     },
     "files": [
-      "**/*",
+      "out/**/*",
       "build/icon.png",
       "build/icon.ico",
-      "!promo/**",
-      "!dist/**",
-      "!*.cmd",
-      "!setup-log.txt",
+      "helper/nova-helper.exe",
+      "package.json",
+      "LICENSE",
       "!**/*.map",
-      "!helper/*.cs",
-      "!helper/*.cmd"
+      "!out/promo/**"
     ],
     "publish": {
       "provider": "github",
@@ -60,7 +76,6 @@
     ],
     "win": {
       "target": [
-        "portable",
         "nsis"
       ],
       "icon": "build/icon.ico",

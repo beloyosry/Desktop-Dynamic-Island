@@ -45,6 +45,9 @@
   window.__mock = { APPS, SHELF, PRAYER, WEATHER, CLIPS, features: {} };
   const group = (impl) => new Proxy({}, { get: (_t, k) => (k in impl ? impl[k] : () => later(null)) });
   window.nova = new Proxy({
+    notes: group({ get: () => later({ text: '', todos: [] }), save: (data) => later(data) }),
+    tools: group({}),
+    updates: group({ status: () => later({ phase: 'unavailable', distribution: 'development', currentVersion: '2.1.0', availableVersion: null, automatic: true, percent: 0, transferred: 0, total: 0, bytesPerSecond: 0, lastChecked: null, message: '' }) }),
     apps: group({ list: () => later(APPS), all: () => later(APPS) }),
     shelf: group({ list: () => later(SHELF) }),
     system: group({ snapshot: () => later({ clips: CLIPS, weather: WEATHER }) }),

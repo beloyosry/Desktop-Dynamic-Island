@@ -1,0 +1,58 @@
+name: Windows release
+on:
+  push:
+    tags: ['v*.*.*']
+permissions:
+  contents: write
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Validate release version
+        shell: pwsh
+        run: |
+          $version = (Get-Content package.json | ConvertFrom-Json).version
+          if ($env:GITHUB_REF_NAME -ne "v$version") { throw 'Tag must match package.json version' }
+          if ($version -notmatch '^\d+\.\d+\.\d+$') { throw 'This workflow publishes stable releases only' }
+      - run: npm ci
+      - run: npm run check
+      - name: Build installer and update metadata
+        run: npm run dist
+        env:
+          CSC_LINK: ${{ secrets.CSC_LINK }}
+          CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+      - run: npm run verify:release
+      - name: Retain release artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-release
+          path: |
+            dist/Dynamic-Island-Pro-Setup-*.exe
+            dist/*.blockmap
+            dist/latest.yml
+      - name: Publish complete release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = $env:GITHUB_REF_NAME
+          $version = (Get-Content package.json | ConvertFrom-Json).version
+          $existing = gh release view $tag --json isDraft 2>$null
+          if ($LASTEXITCODE -eq 0) {
+            if (-not ($existing | ConvertFrom-Json).isDraft) { throw 'Release already published; use a new version' }
+          } else {
+            gh release create $tag --draft --verify-tag --title "Dynamic Island Pro $version" --generate-notes
+            if ($LASTEXITCODE -ne 0) { throw 'Could not create release draft' }
+          }
+          gh release upload $tag "dist/Dynamic-Island-Pro-Setup-$version.exe" "dist/Dynamic-Island-Pro-Setup-$version.exe.blockmap" dist/latest.yml --clobber
+          if ($LASTEXITCODE -ne 0) { throw 'Could not upload all release assets' }
+          gh release edit $tag --draft=false --latest
+          if ($LASTEXITCODE -ne 0) { throw 'Could not publish release' }

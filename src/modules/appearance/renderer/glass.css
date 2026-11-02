@@ -1,0 +1,65 @@
+/* Liquid Glass material vocabulary. Application layouts live in the companion page sheets. */
+:root {
+  --glass-pearl: #f6f9ff;
+  --glass-ink: #111c30;
+  --glass-ice: #b8d9f4;
+  --glass-lilac: #b5a4ef;
+  --glass-rose: #edb5c5;
+  --glass-aqua: #8bd6d1;
+  --glass-surface: linear-gradient(145deg, #ffffff20, #ffffff08 48%, #ffffff12);
+  --glass-border: #ffffff28;
+  --glass-edge: inset 0 1px 0 #ffffff70, inset 1px 0 0 #ffffff1a, inset 0 -1px 0 #ffffff18;
+  --glass-shadow: 0 8px 24px -12px #050b2266;
+  --glass-ease: cubic-bezier(.22, 1, .36, 1);
+  --text-1: #f6f9ff;
+  --text-2: #e5edfad1;
+  --text-3: #ccd8ebad;
+  --light-x: 22%;
+  --light-y: 0%;
+  --font: "SF Pro Display", "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+}
+
+button, a, input, textarea { -webkit-tap-highlight-color: transparent; }
+:is(button, a, input, textarea):focus-visible {
+  outline: 2px solid var(--glass-pearl);
+  outline-offset: 3px;
+}
+:is(.tool-btn, .theme-option, .preview-island, .ctl, .btn) {
+  --pointer-x: 24%;
+  --pointer-y: 0%;
+  position: relative;
+  isolation: isolate;
+}
+:is(.tool-btn, .theme-option, .preview-island, .ctl, .btn)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(130px circle at var(--pointer-x) var(--pointer-y), #ffffff24, transparent 75%);
+  opacity: 0;
+  transition: opacity .3s var(--glass-ease);
+}
+:is(.tool-btn, .theme-option, .preview-island, .ctl, .btn):hover::before { opacity: 1; }
+:root[data-reflections="false"] :is(.tool-btn, .theme-option, .preview-island, .ctl, .btn)::before { display: none; }
+
+:root[data-transparency="reduced"] {
+  --glass-tint: #111c30 !important;
+  --glass-tint-strong: #111c30 !important;
+  --glass-surface: #28364b;
+  --glass-border: #ffffff4a;
+}
+:root[data-transparency="reduced"] :is(.tint, .seg, .side, .card, .tool-btn, .command-panel, .preview-island) { backdrop-filter: none !important; }
+:root[data-motion="reduced"] *, :root[data-motion="reduced"] *::before, :root[data-motion="reduced"] *::after {
+  animation: none !important;
+  transition-duration: .01ms !important;
+  transition-delay: 0ms !important;
+  scroll-behavior: auto !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; transition-delay: 0ms !important; }
+}
+@media (forced-colors: active) {
+  :is(button, .card, .seg, .sw, .preview-island) { border: 1px solid ButtonText !important; }
+}

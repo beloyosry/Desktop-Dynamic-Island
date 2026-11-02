@@ -32,7 +32,7 @@ Get the latest official build directly:
 
 Settings > Personalize > Import setup now accepts appearance-only profile packs. Packs add saved profiles without replacing your settings, bookmarks, clocks, notes or existing profiles. Choose Apply to use a layout; privacy settings, alerts and timer durations remain yours. Duplicate imports are safe, and full libraries or conflicting names are reported before any changes are saved.
 
-The optional Supporter pack contains six curated layouts, preview images and an English/Arabic guide. All app features remain free. Local delivery materials and launch status are documented in [Supporter pack](docs/supporter.md); this does not indicate that the store or 2.6.1 release has been published.
+The optional [$9 Supporter pack](https://byosrydevkits.gumroad.com/l/dynamic-island-supporter) contains six curated layouts, preview images, an English/Arabic guide and seven days of installation help. All app features remain free. Requires [version 2.6.1 or newer](https://github.com/beloyosry/Desktop-Dynamic-Island/releases/latest). See [Supporter pack](docs/supporter.md) for safe import and delivery details.
 
 ## Included in 2.6.0 — Quran, cleanup, and Boost
 

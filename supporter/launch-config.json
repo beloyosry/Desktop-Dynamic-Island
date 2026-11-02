@@ -1,8 +1,8 @@
 {
-  "checkoutUrl": null,
+  "checkoutUrl": "https://byosrydevkits.gumroad.com/l/dynamic-island-supporter",
   "productUrl": "https://byosrydevkits.gumroad.com/l/dynamic-island-supporter",
   "editorUrl": "https://gumroad.com/products/jcrza/edit",
-  "storeStatus": "draft",
+  "storeStatus": "published",
   "supportEmail": "Byosry@gmail.com",
   "downloadUrl": "https://github.com/beloyosry/Desktop-Dynamic-Island/releases/latest"
 }

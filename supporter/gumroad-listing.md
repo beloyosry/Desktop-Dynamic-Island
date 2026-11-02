@@ -1,8 +1,8 @@
 # Gumroad product setup
 
-Status: uploaded and saved as a Gumroad draft on 2026-11-02. Editor: https://gumroad.com/products/jcrza/edit . Product preview: https://byosrydevkits.gumroad.com/l/dynamic-island-supporter . Price: USD 9, one-time. Description, eight gallery images, thumbnail, customer ZIP and bilingual receipt instructions are saved. The receipt contact is byosry@gmail.com.
+Status: published on 2026-11-02. Editor: https://gumroad.com/products/jcrza/edit . Store: https://byosrydevkits.gumroad.com/l/dynamic-island-supporter . Price: USD 9, one-time. Description, eight gallery images, thumbnail, customer ZIP and bilingual receipt instructions are saved. The receipt contact is byosry@gmail.com.
 
-Sales are not enabled: the latest public app release is still v2.0.0. The owner connected a payout method and Gumroad's publication warning has cleared. Publish the compatible free 2.6.1+ installer and corresponding source, then verify checkout/test purchase as part of activation. The preview URL is not an active checkout link.
+Sales are enabled after publishing the compatible free 2.6.1 installer and source. Creator test checkout succeeded without a real charge, and its downloaded ZIP exactly matched the supplied package. See `gumroad-status.md` for verification details; real revenue and payouts have not been tested.
 
 - Product type: digital product, one-time purchase.
 - Name: Dynamic Island Pro — Supporter Layout Pack
@@ -11,7 +11,7 @@ Sales are not enabled: the latest public app release is still v2.0.0. The owner 
 - Cover: `artifacts/supporter/marketing/cover-en.png`; thumbnail: `thumbnail.png`.
 - Gallery: six profile previews in `artifacts/supporter/customer/previews/` and `cover-ar.png`.
 - The receipt contact was verified as byosry@gmail.com; the customer guide and listing also include that address.
-- The draft URL is recorded as `productUrl` in `supporter/launch-config.json`. Keep `checkoutUrl` unset until sales are actually enabled, then regenerate end cards/captions.
+- The live URL is recorded as `productUrl` and `checkoutUrl` in `supporter/launch-config.json`; marketing end cards and captions use this URL.
 
 ## English description (paste into the product description)
 

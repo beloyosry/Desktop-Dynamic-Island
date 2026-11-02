@@ -114,14 +114,18 @@ test.describe.serial('Toolkit and personalization', () => {
     await openTool('generator');
     const previous = await app.evaluateHandle(async ({ clipboard, ClipboardItem }) =>
       Promise.all(
-        (await clipboard.read()).map(
-          async (item) =>
-            new ClipboardItem(
-              Object.fromEntries(
-                await Promise.all(item.types.map(async (type) => [type, await item.getType(type)])),
+        // A fresh Windows runner can expose a clipboard item with no readable formats.
+        // ClipboardItem rejects an empty MIME map; there is nothing to restore for it.
+        (await clipboard.read())
+          .filter((item) => item.types.length > 0)
+          .map(
+            async (item) =>
+              new ClipboardItem(
+                Object.fromEntries(
+                  await Promise.all(item.types.map(async (type) => [type, await item.getType(type)])),
+                ),
               ),
-            ),
-        ),
+          ),
       ),
     );
     try {
@@ -188,6 +192,7 @@ test.describe.serial('Toolkit and personalization', () => {
     await island.screenshot({ path: 'artifacts/toolkit-compact.png', animations: 'disabled' });
     await island.evaluate((features) => window.nova.setFeatures(features), initial);
     await settings.evaluate(() => window.prefs.window('close'));
+    await expect.poll(() => app.windows().length).toBe(1);
   });
   test('customization export and import round-trip through native IPC and reject malformed backups', async () => {
     await island.evaluate(() => window.nova.customization.openSettings());
@@ -234,6 +239,7 @@ test.describe.serial('Toolkit and personalization', () => {
     }
     await island.evaluate((features) => window.nova.setFeatures(features), initial);
     await settings.evaluate(() => window.prefs.window('close'));
+    await expect.poll(() => app.windows().length).toBe(1);
   });
   test('mode library searches, filters and remembers favorites across Settings windows', async () => {
     await island.locator('#open-modes').click();
@@ -272,6 +278,7 @@ test.describe.serial('Toolkit and personalization', () => {
     await expect(reopened.locator('[data-mod="silent"]')).toBeVisible();
     await reopened.locator('#find').fill('');
     await reopened.evaluate(() => window.prefs.window('close'));
+    await expect.poll(() => app.windows().length).toBe(1);
   });
   test('mode switching, layered mods and restore synchronize with the island', async () => {
     const baseline = await island.evaluate(() => window.nova.features());
@@ -308,6 +315,7 @@ test.describe.serial('Toolkit and personalization', () => {
       .toEqual({ ...baseline, waterGoal: 12 });
     await island.evaluate((features) => window.nova.setFeatures(features), baseline);
     await settings.evaluate(() => window.prefs.window('close'));
+    await expect.poll(() => app.windows().length).toBe(1);
   });
   test('presentation suppresses island previews and command actions can restore or toggle mods', async () => {
     const baseline = await island.evaluate(() => window.nova.features());
@@ -329,6 +337,7 @@ test.describe.serial('Toolkit and personalization', () => {
       });
     await expect(island.locator('.tab[data-tab="notes"]')).toBeHidden();
     await settings.evaluate(() => window.prefs.window('close'));
+    await expect.poll(() => app.windows().length).toBe(1);
     await island.locator('#open-commands').click();
     await island.locator('#command-query').fill('return to my setup');
     await island.locator('#command-query').press('Enter');

@@ -29,7 +29,7 @@ Keep campaign source links distinct with UTM parameters when posting. Count stor
 
 | Date / channel | Post permalink | Store visits | Purchases | Refunds | Gross USD | Support issues |
 | --- | --- | ---: | ---: | ---: | ---: | --- |
-| Not launched | — | — | — | — | — | — |
+| 2026-11-02 / store published; promotion pending | — | Not measured | Not measured | Not measured | Not measured | Test checkout passed |
 
 Conversion = purchases / store visits, only when visits > 0. Gross = purchases × 9 before discounts, refunds and deductions; actual net income comes from the payment report. Avoid projecting monthly income from this small sample.
 

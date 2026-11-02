@@ -4,7 +4,7 @@ The optional $9 one-time offer contains six editable layouts, preview images, a 
 
 ## Compatibility and safe import
 
-Requires **Dynamic Island Pro 2.6.1+**. Do not enable checkout until the free updated installer and corresponding source are publicly available. Local builds do not publish a release.
+Requires **Dynamic Island Pro 2.6.1+**. The [free installer and corresponding source](https://github.com/beloyosry/Desktop-Dynamic-Island/releases/tag/v2.6.1) are public. The [optional $9 pack](https://byosrydevkits.gumroad.com/l/dynamic-island-supporter) is available on Gumroad.
 
 Packs use `format: "dynamic-island-profile-pack"`, `version: 1`, and 1–12 `{ name, features }` entries. The complete file is validated before writing: unique nonempty names, canonical tab order, bounded values and an appearance/navigation allowlist. Unknown or behavioral settings are rejected. The existing 500 KB file limit applies. No new IPC or preload methods were added.
 
@@ -25,6 +25,6 @@ Catalog and media code are development-only. Customer JSON is the editable sourc
 
 ## Launch handoff
 
-The listing is in `supporter/gumroad-listing.md`; generated captions are in `artifacts/supporter/marketing/captions.md`; the two-week schedule, reporting sheet and support replies are in `supporter/launch-playbook.md`. The owner's support email is in `supporter/launch-config.json`; add the actual Gumroad product URL and regenerate media once the storefront exists. Without that URL, end cards explicitly say the storefront is being prepared.
+The listing is in `supporter/gumroad-listing.md`; generated captions are in `artifacts/supporter/marketing/captions.md`; the two-week schedule, reporting sheet and support replies are in `supporter/launch-playbook.md`. The owner's support email and live product URL are in `supporter/launch-config.json`. Marketing videos and captions have been regenerated for the live store. The original customer ZIP verified through test checkout is retained unchanged.
 
-Seller login/payout activation, product publication, social publication and two-week results require authenticated accounts and actual traffic. The user has confirmed an existing Gumroad account; the accessible browser initially showed the login page. No store or social post should be reported live without a verified URL.
+Publication and creator test checkout are verified in `supporter/gumroad-status.md`. The test purchase downloaded the exact customer ZIP without a real charge. Actual payouts, revenue and the two-week campaign results have not been tested. Social channels/community destinations have not been supplied, so promotional posts have not been published.
